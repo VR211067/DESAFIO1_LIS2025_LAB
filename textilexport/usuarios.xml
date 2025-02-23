@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<usuarios>
+    <usuario>
+        <nombre>Juan</nombre>
+        <apellido>Pérez</apellido>
+        <correo>juan@ejemplo.com</correo>
+        <carnet>JP123456</carnet>
+        <usuario>juanp</usuario>
+        <password>$2y$10$e0N/sd2J0oYKqNqf9IxiGeVYUXqUomqTxa6TA4RnX6CfRf/8pPfUW</password> <!-- Contraseña: admin123 -->
+    </usuario>
+<usuario><nombre>Nemesis</nombre><apellido>Valencia</apellido><correo>nemesis@gmail.com</correo><carnet>NV627620</carnet><usuario>admin4</usuario><password>$2y$10$ht7YgEdw2jXaQ15UwwYw/uc2mgmf21eW62oat.ihXhVHzqgI4Y6i2</password></usuario><usuario><nombre>Nemesis</nombre><apellido>Valencia</apellido><correo>nemesis@gmail.com</correo><carnet>NV885823</carnet><usuario>admin5</usuario><password>$2y$10$zNGbyfRziPtulOUOS7xeI.YJsbwlUrWIJs3PHlk1HpYvzsHeJlElG</password></usuario></usuarios>

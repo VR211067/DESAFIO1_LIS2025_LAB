@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<productos>
+    
+    
+<producto><codigo>PROD00008</codigo><nombre>camisas de manta</nombre><descripcion>eee</descripcion><imagen>uploads/Banner1.jpg</imagen><categoria>Textil</categoria><precio>9.50</precio><existencias>23</existencias></producto><producto><codigo>PROD00009</codigo><nombre>nemesis valencia</nombre><descripcion>wdffd</descripcion><imagen>uploads/Banner2.png</imagen><categoria>Promocionales</categoria><precio>4.66</precio><existencias>44</existencias></producto></productos>
