@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start();//iniciamos para guardar errores o datos del usuario
 $archivoXML = "usuarios.xml";
 
 if (!file_exists($archivoXML)) {
@@ -8,6 +8,7 @@ if (!file_exists($archivoXML)) {
     $xml = simplexml_load_file($archivoXML);
 }
 
+//captura de datos para registrar un usuario
 $nombre = $_POST["nombre"];
 $apellido = $_POST["apellido"];
 $correo = $_POST["correo"];
@@ -33,6 +34,7 @@ $nuevoUsuario->addChild("carnet", $carnet);
 $nuevoUsuario->addChild("usuario", $usuario);
 $nuevoUsuario->addChild("password", $password);
 
+//guardamos el xml actualizado y automaticamente se inicia sesion del usuario
 $xml->asXML($archivoXML);
 $_SESSION["usuario"] = $usuario;
 header("Location: admin.php");

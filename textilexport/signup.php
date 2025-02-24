@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start(); ?> <!--variables de sesion para errores-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -71,9 +71,12 @@
         </div>
     </div>
     <script>
-        document.querySelector("[name='nombre']").addEventListener("input", generarCarnet);
+       //cuando se escribe un nombre y apellido se llama a la funcion generar carnet
+       document.querySelector("[name='nombre']").addEventListener("input", generarCarnet);
         document.querySelector("[name='apellido']").addEventListener("input", generarCarnet);
 
+        /*obtenemos el valor sin espacios y en mayusculas(tener al menos un caracter)para elegir la
+        inicial del apellido y del nombre mas 6 digitos aleatorios */
         function generarCarnet() {
             let nombre = document.querySelector("[name='nombre']").value.trim().toUpperCase();
             let apellido = document.querySelector("[name='apellido']").value.trim().toUpperCase();
@@ -81,7 +84,7 @@
             if (nombre.length > 0 && apellido.length > 0) {
                 let iniciales = nombre.charAt(0) + apellido.charAt(0);
                 let numeros = Math.floor(100000 + Math.random() * 900000);
-                document.getElementById("carnet").value = iniciales + numeros;
+                document.getElementById("carnet").value = iniciales + numeros;//asignamos un carnet
             }
         }
     </script>

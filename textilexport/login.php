@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start(); ?> <!--iniciamos sesion por variables(los errores se guardan en sesion)-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -57,7 +57,7 @@
 
                 </form>
 
-                <!-- Mostrar errores -->
+                <!-- mostrar errores y quitar alerta de errores cuando se resuelva -->
                 <?php if (isset($_SESSION['error'])): ?>
                     <div class="alert alert-danger mt-3"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
                 <?php endif; ?>

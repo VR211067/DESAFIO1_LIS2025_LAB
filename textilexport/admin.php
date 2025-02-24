@@ -1,12 +1,23 @@
 <?php
-session_start();
+//iniciamos sesion para poder acceder a variables de sesión y verificar si el usuario inició sesión//
+session_start(); 
 if (!isset($_SESSION["usuario"])) {
+    // Si no hay un usuario en sesión regresa a login.
     header("Location: login.php");
-    exit();
+    exit();  
 }
 
+// archivo donde guardamos los productos
 $archivoXML = "productos.xml";
-$xml = file_exists($archivoXML) ? simplexml_load_file($archivoXML) : new SimpleXMLElement("<productos></productos>");
+
+// ¿existe el archivo?
+if (file_exists($archivoXML)) {
+    // si existe lo cargamos para usarlo
+    $xml = simplexml_load_file($archivoXML);
+} else {
+    // si no existe se crea uno
+    $xml = new SimpleXMLElement("<productos></productos>");
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,8 +44,11 @@ $xml = file_exists($archivoXML) ? simplexml_load_file($archivoXML) : new SimpleX
     <button class="btn btn-agregar mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar Producto</button>
 
     <?php
-    // Agrupar productos por categoría
+   //array
     $productosPorCategoria = [];
+
+    /*Recorremos todos los productos dentro del archivo XML y los agrupamos 
+    en un array asociativo por su categoría.*/
     foreach ($xml->producto as $producto) {
         $categoria = (string) $producto->categoria;
         if (!isset($productosPorCategoria[$categoria])) {
@@ -44,7 +58,11 @@ $xml = file_exists($archivoXML) ? simplexml_load_file($archivoXML) : new SimpleX
     }
     ?>
 
-    <?php foreach ($productosPorCategoria as $categoria => $productos): ?>
+
+    
+    <?php //Para ambas categorias se recorre para luego mostrarlas en la tabla
+    foreach ($productosPorCategoria as $categoria => $productos): ?>
+    
         <h3 class="categoria-header"><?= $categoria ?></h3>
         <table class="table table-dark table-bordered text-center">
             <thead>
@@ -58,18 +76,24 @@ $xml = file_exists($archivoXML) ? simplexml_load_file($archivoXML) : new SimpleX
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($productos as $producto): ?>
+                <?php 
+                /* se recorre el array de productos para almacenar cada item en $producto
+                y se muestren en la tabla de la categoria correspondiente */
+                foreach ($productos as $producto): ?>
                 <tr>
                     <td><?= $producto->codigo ?></td>
                     <td><?= $producto->nombre ?></td>
                     <td><img src="<?= $producto->imagen ?>" width="50"></td>
                     <td>$<?= $producto->precio ?></td>
                     <td><?= $producto->existencias ?></td>
-                    <td>
+                    <td> 
+                        <!-- enviamos los datos del producto que se 
+                        desea eliminar a procesar.php usando el codigo del producto para guiarse-->
                         <form action="procesar.php" method="POST" style="display:inline;">
                             <input type="hidden" name="codigo" value="<?= $producto->codigo ?>">
                             <button type="submit" class="btn btn-eliminar btn-sm" name="eliminar">Eliminar</button>
                         </form>
+                        <!-- boton para abrir el modal de edición con los campos llenos de la información a editar-->
                         <button class="btn btn-editar btn-sm editar" 
                                 data-codigo="<?=  $producto->codigo ?>" 
                                 data-nombre="<?=  $producto->nombre ?>" 
@@ -169,7 +193,7 @@ $xml = file_exists($archivoXML) ? simplexml_load_file($archivoXML) : new SimpleX
 
                  
                     <label>Precio:</label>
-                    <input type="number" name="precio" step="0.01" id="editPrecio" class="form-control" required>
+                    <input type="number" name="precio" id="editPrecio" class="form-control" required>
 
                     <label>Existencias:</label>
                     <input type="number" name="existencias" id="editExistencias" class="form-control" required>
@@ -186,3 +210,4 @@ $xml = file_exists($archivoXML) ? simplexml_load_file($archivoXML) : new SimpleX
     <script src="js/scripts.js"></script>
 </body>
 </html>
+

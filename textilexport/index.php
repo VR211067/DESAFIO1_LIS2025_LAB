@@ -1,13 +1,11 @@
 <?php
-session_start(); // Inicia la sesión para gestionar datos de usuario 
-
-$archivoXML = "productos.xml"; // Archivo donde están almacenados los productos
-
+session_start(); // iniciamos sesion para gestionar datos de usuario 
+$archivoXML = "productos.xml"; 
 $xml = file_exists($archivoXML) ? simplexml_load_file($archivoXML) : new SimpleXMLElement("<productos></productos>");
 
-
+//verificamos si se ha seleccionado una categoria en especial desde el navbar para mostrar los productos 
 $categoriaSeleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : "all";
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="es">
@@ -33,7 +31,7 @@ $categoriaSeleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : "all";
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Menú lateral Offcanvas -->
+            <!-- Menú  -->
             <div class="offcanvas offcanvas-end bg-dark text-light" id="offcanvasNavbar">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title">TextilExport</h5>
@@ -45,7 +43,7 @@ $categoriaSeleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : "all";
                         <li class="nav-item">
                             <a class="nav-link text-light" href="index.php">HOME</a>
                         </li>
-                        <!-- Menú desplegable de categorías -->
+                        <!-- Menú de categorías -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-light" href="#" id="categoriasDropdown" role="button" data-bs-toggle="dropdown">
                                 CATEGORÍAS
@@ -64,7 +62,7 @@ $categoriaSeleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : "all";
         </div>
     </nav>
 
-    <!-- Carrusel de imágenes -->
+    <!-- Carrusel-->
     <div id="carouselExampleIndicators" class="carousel slide mt-5" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -92,6 +90,7 @@ $categoriaSeleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : "all";
         <!-- Barra de búsqueda -->
         <input type="text" id="buscador" class="form-control w-50 mx-auto mt-3" placeholder="Buscar productos...">
         <div class="row" id="productos-container">
+            <!-- el foreach recorre los productos ya sea si están todos o solo recorre donde esté la categoria seleccionada-->
             <?php foreach ($xml->producto as $producto): ?>
                 <?php if ($categoriaSeleccionada === "all" || $producto->categoria == $categoriaSeleccionada): ?>
                 <div class="col-md-4 mb-4 producto" data-categoria="<?= $producto->categoria ?>">
@@ -105,7 +104,7 @@ $categoriaSeleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : "all";
                                 <?= $producto->existencias > 0 ? "Disponible" : "Producto No Disponible" ?>
                             </p>
                             <div class="d-flex justify-content-center">
-                                <!-- Botón para ver detalles del producto en un modal -->
+                                <!-- Botón  ver detalles del producto usando modal -->
                                 <button class="btn btnver-detalle ver-detalle" data-bs-toggle="modal" data-bs-target="#modalProducto" 
                                         data-codigo="<?= $producto->codigo ?>" data-nombre="<?= $producto->nombre ?>"
                                         data-descripcion="<?= $producto->descripcion ?>" data-imagen="<?= $producto->imagen ?>"
